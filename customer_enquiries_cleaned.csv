@@ -1,0 +1,101 @@
+enquiry_id,source,service_type,budget,response_time_hours,previous_interactions_follow_up_count,converted
+ENQ001,Referral,Basic,1891.45,1.6,3,1
+ENQ002,Walk-in,Standard,3007.36,13.6,0,0
+ENQ003,Social Media,Standard,3304.04,10.0,3,0
+ENQ004,Website,Standard,3686.25,5.2,5,1
+ENQ005,Website,Enterprise,27928.33,4.2,4,0
+ENQ006,Website,Premium,2151.18,8.9,2,0
+ENQ007,Website,Standard,6112.26,8.9,0,0
+ENQ008,Advertisement,Premium,14277.46,2.8,4,1
+ENQ009,Website,Basic,2378.14,7.2,5,0
+ENQ010,Social Media,Basic,1338.77,2.7,4,0
+ENQ011,Website,Basic,1845.51,55.8,1,0
+ENQ012,Website,Basic,2291.53,16.7,3,0
+ENQ013,Advertisement,Enterprise,4621.0,20.4,6,0
+ENQ014,Website,Premium,15855.82,27.0,2,1
+ENQ015,Website,Premium,5391.4,0.9,2,1
+ENQ016,Website,Premium,13703.75,0.9,0,1
+ENQ017,Website,Standard,16137.31,5.9,1,0
+ENQ018,Referral,Basic,2108.99,3.4,3,1
+ENQ019,Referral,Premium,8042.66,9.6,5,1
+ENQ020,Website,Standard,6475.93,4.3,1,0
+ENQ021,Social Media,Premium,7766.18,39.9,3,0
+ENQ022,Website,Premium,9142.59,4.0,3,1
+ENQ023,Website,Premium,7274.33,16.6,3,0
+ENQ024,Referral,Basic,1405.15,17.5,0,1
+ENQ025,Referral,Basic,997.32,8.9,0,0
+ENQ026,Advertisement,Standard,6777.3,15.1,1,0
+ENQ027,Website,Premium,12661.97,8.2,1,0
+ENQ028,Referral,Premium,11684.3,12.0,1,0
+ENQ029,Social Media,Basic,1436.84,12.3,3,0
+ENQ030,Website,Standard,2852.84,8.9,0,0
+ENQ031,Social Media,Standard,5428.88,34.3,3,0
+ENQ032,Website,Enterprise,1727.55,34.6,3,0
+ENQ033,Website,Basic,917.91,1.8,0,0
+ENQ034,Walk-in,Standard,2972.21,14.3,0,0
+ENQ035,Walk-in,Enterprise,26612.34,22.9,0,0
+ENQ036,Referral,Standard,6572.34,4.5,2,0
+ENQ037,Website,Standard,6887.36,16.4,2,0
+ENQ038,Website,Premium,15381.45,20.2,4,1
+ENQ039,Social Media,Standard,4621.0,24.0,3,0
+ENQ040,Referral,Enterprise,42368.93,8.9,4,1
+ENQ041,Website,Enterprise,42445.31,1.6,5,1
+ENQ042,Referral,Basic,1298.46,5.3,4,1
+ENQ043,Website,Enterprise,4972.1,1.2,3,0
+ENQ044,Walk-in,Standard,3085.34,2.4,2,1
+ENQ045,Website,Basic,942.98,15.0,0,0
+ENQ046,Social Media,Basic,2197.16,15.2,0,0
+ENQ047,Website,Standard,2924.19,52.3,5,0
+ENQ048,Referral,Standard,4381.3,1.5,4,1
+ENQ049,Social Media,Basic,1637.46,0.6,1,0
+ENQ050,Website,Basic,1001.99,2.0,5,0
+ENQ051,Walk-in,Enterprise,41452.18,3.5,1,1
+ENQ052,Advertisement,Basic,2448.79,1.0,3,0
+ENQ053,Walk-in,Standard,1741.55,42.3,4,0
+ENQ054,Advertisement,Standard,5421.57,28.3,0,0
+ENQ055,Social Media,Enterprise,25586.01,36.5,3,1
+ENQ056,Walk-in,Basic,1119.81,8.0,2,0
+ENQ057,Website,Standard,7371.97,51.9,4,0
+ENQ058,Website,Premium,9207.48,29.5,7,1
+ENQ059,Website,Basic,844.82,6.2,3,0
+ENQ060,Website,Premium,11499.35,42.5,3,0
+ENQ061,Referral,Standard,2781.88,24.5,7,0
+ENQ062,Website,Standard,4752.72,8.9,4,1
+ENQ063,Advertisement,Standard,4290.81,1.9,5,1
+ENQ064,Referral,Standard,5304.69,25.6,1,0
+ENQ065,Website,Basic,848.93,17.4,3,0
+ENQ066,Referral,Premium,7652.72,5.7,4,1
+ENQ067,Website,Standard,5069.95,18.9,4,0
+ENQ068,Advertisement,Basic,4621.0,8.6,3,0
+ENQ069,Website,Basic,1358.88,12.5,1,0
+ENQ070,Walk-in,Standard,3144.4,2.1,1,0
+ENQ071,Advertisement,Standard,5704.37,2.9,4,0
+ENQ072,Website,Basic,1126.89,8.9,1,1
+ENQ073,Website,Standard,3385.05,1.6,1,0
+ENQ074,Advertisement,Basic,1150.77,5.9,2,0
+ENQ075,Social Media,Standard,6497.05,12.4,0,1
+ENQ076,Walk-in,Basic,2285.08,30.9,0,0
+ENQ077,Advertisement,Standard,3884.39,20.2,2,0
+ENQ078,Website,Standard,4352.36,8.5,3,0
+ENQ079,Website,Enterprise,18990.45,4.0,4,0
+ENQ080,Website,Basic,1560.6,9.6,1,0
+ENQ081,Advertisement,Standard,4386.42,0.7,1,0
+ENQ082,Social Media,Basic,1356.75,2.0,5,0
+ENQ083,Website,Enterprise,32501.88,11.1,2,1
+ENQ084,Website,Premium,10479.65,8.9,4,1
+ENQ085,Website,Standard,1203.29,1.8,1,0
+ENQ086,Website,Standard,3303.41,3.0,1,1
+ENQ087,Social Media,Premium,16916.04,1.5,3,1
+ENQ088,Social Media,Standard,4489.28,42.4,3,0
+ENQ089,Advertisement,Standard,5843.22,32.3,3,0
+ENQ090,Referral,Basic,1117.97,5.2,2,0
+ENQ091,Website,Basic,995.22,11.8,2,0
+ENQ092,Social Media,Premium,12551.97,9.6,0,0
+ENQ093,Advertisement,Enterprise,4621.0,2.2,0,0
+ENQ094,Social Media,Standard,7449.8,5.2,4,1
+ENQ095,Advertisement,Standard,4857.88,6.9,4,0
+ENQ096,Referral,Standard,6154.34,33.9,1,1
+ENQ097,Referral,Premium,15281.77,10.8,3,0
+ENQ098,Referral,Premium,9218.39,2.7,5,1
+ENQ099,Website,Premium,16074.29,7.4,2,1
+ENQ100,Website,Premium,15349.9,8.9,2,1

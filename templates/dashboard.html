@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard • Customer Conversion Prediction System</title>
+  <meta name="description" content="AI Machine Learning Administration Dashboard for Lead Scoring and Customer Conversion Prediction.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366F1'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+  <!-- Chart.js for beautiful interactive analytics charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Ambient Animated Lighting -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="app-container">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <div class="nav-logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="nav-brand-title">
+          Customer Conversion <span>Prediction System</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Active Admin Session Indicator -->
+        <div class="admin-profile-pill">
+          <span class="status-dot" title="Session Active"></span>
+          <span>Admin: <strong>{{ username }}</strong></span>
+        </div>
+
+        <!-- Logout Button -->
+        <a href="{{ url_for('logout') }}" id="btn-logout" class="btn-logout" title="End admin session">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Logout</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-content">
+      
+      <!-- Dashboard Header -->
+      <section class="dash-header">
+        <div>
+          <h1>Administrative Analytics Dashboard</h1>
+          <p>Real-time customer lead evaluation, historical dataset monitoring, and machine learning pipeline inference.</p>
+        </div>
+        <div>
+          <div class="model-status-chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Model Active: {{ model_name }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. KPI Summary Cards Row -->
+      <section class="kpi-grid" aria-label="Key Performance Indicators">
+        
+        <!-- Total Customers Analyzed -->
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-title">Total Customers Analyzed</span>
+            <div class="kpi-icon-wrap kpi-icon-blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+          </div>
+          <div class="kpi-value" id="kpi-total">{{ stats.total }}</div>
+          <div class="kpi-desc">Historical records + live evaluated enquiries</div>
+        </div>
+
+        <!-- Predicted Conversions -->
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-title">Predicted Conversions</span>
+            <div class="kpi-icon-wrap kpi-icon-green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+          </div>
+          <div class="kpi-value" id="kpi-converted" style="color: #34D399;">{{ stats.converted }}</div>
+          <div class="kpi-desc">High-intent leads classified as Converted (1)</div>
+        </div>
+
+        <!-- Predicted Non-Conversions -->
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-title">Predicted Non-Conversions</span>
+            <div class="kpi-icon-wrap kpi-icon-red">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            </div>
+          </div>
+          <div class="kpi-value" id="kpi-non-converted" style="color: #F87171;">{{ stats.non_converted }}</div>
+          <div class="kpi-desc">Leads classified as Not Converted (0)</div>
+        </div>
+
+        <!-- Conversion Percentage -->
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-title">Conversion Percentage</span>
+            <div class="kpi-icon-wrap kpi-icon-purple">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            </div>
+          </div>
+          <div class="kpi-value" id="kpi-rate" style="color: #A78BFA;">{{ stats.rate }}%</div>
+          <div class="kpi-desc">Overall conversion likelihood ratio</div>
+        </div>
+
+      </section>
+
+      <!-- 2. Main Content Grid: Analytics Chart + Live ML Prediction Form -->
+      <section class="content-grid">
+        
+        <!-- Left: Interactive Charts Section -->
+        <div class="dash-card">
+          <div class="card-title-row">
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+              Customer Conversion Predictions
+            </h3>
+            <div style="font-size: 0.82rem; color: #94A3B8;">Dynamic Distribution</div>
+          </div>
+
+          <div class="chart-container-box">
+            <canvas id="conversionDoughnutChart"></canvas>
+          </div>
+
+          <!-- Secondary Mini Breakdown: Source Propensity -->
+          <div style="margin-top: 1.6rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.2rem;">
+            <div style="font-size: 0.82rem; font-weight: 600; color: #94A3B8; text-transform: uppercase; margin-bottom: 0.8rem; letter-spacing: 0.04em;">
+              Conversion Propensity by Acquisition Channel
+            </div>
+            <div style="height: 140px;">
+              <canvas id="sourceBarChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Real-time Customer Conversion Prediction Form -->
+        <div class="dash-card">
+          <div class="card-title-row">
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+              Predict Prospective Conversion
+            </h3>
+            <div style="font-size: 0.8rem; color: #34D399;">Scikit-learn Inference</div>
+          </div>
+
+          <!-- Quick Test Presets -->
+          <div class="preset-bar">
+            <span class="preset-title">Presets:</span>
+            <button type="button" class="preset-btn" data-preset="referral">🌟 Referral VIP</button>
+            <button type="button" class="preset-btn" data-preset="enterprise">🏢 Enterprise</button>
+            <button type="button" class="preset-btn" data-preset="cold">❄️ Cold Social</button>
+            <button type="button" class="preset-btn" data-preset="average">🌐 Standard Web</button>
+          </div>
+
+          <!-- Prediction Input Form -->
+          <form id="prediction-form" novalidate>
+            <div class="form-grid-2">
+              
+              <!-- Source -->
+              <div class="form-group">
+                <label for="form_source" class="form-label">1. Acquisition Source</label>
+                <select id="form_source" name="source" class="form-control" required>
+                  <option value="Website">Website</option>
+                  <option value="Referral">Referral</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Advertisement">Advertisement</option>
+                  <option value="Walk-in">Walk-in</option>
+                </select>
+              </div>
+
+              <!-- Service Tier -->
+              <div class="form-group">
+                <label for="form_service" class="form-label">2. Service Tier</label>
+                <select id="form_service" name="service_type" class="form-control" required>
+                  <option value="Basic">Basic</option>
+                  <option value="Standard" selected>Standard</option>
+                  <option value="Premium">Premium</option>
+                  <option value="Enterprise">Enterprise</option>
+                </select>
+              </div>
+
+            </div>
+
+            <!-- Customer Budget ($) -->
+            <div class="form-group">
+              <label for="form_budget" class="form-label">3. Customer Budget ($ USD)</label>
+              <input 
+                type="number" 
+                id="form_budget" 
+                name="budget" 
+                class="form-control" 
+                placeholder="5000.00" 
+                value="5000" 
+                min="0" 
+                max="150000" 
+                step="100" 
+                required
+              >
+            </div>
+
+            <div class="form-grid-2">
+              
+              <!-- Response Time (Hours) -->
+              <div class="form-group">
+                <label for="form_response_time" class="form-label">4. Response Time (Hours)</label>
+                <input 
+                  type="number" 
+                  id="form_response_time" 
+                  name="response_time_hours" 
+                  class="form-control" 
+                  placeholder="4.0" 
+                  value="4.0" 
+                  min="0" 
+                  max="168" 
+                  step="0.5" 
+                  required
+                >
+              </div>
+
+              <!-- Follow-up Interaction Count -->
+              <div class="form-group">
+                <label for="form_follow_ups" class="form-label">5. Follow-ups Completed</label>
+                <input 
+                  type="number" 
+                  id="form_follow_ups" 
+                  name="previous_interactions_follow_up_count" 
+                  class="form-control" 
+                  placeholder="3" 
+                  value="3" 
+                  min="0" 
+                  max="30" 
+                  step="1" 
+                  required
+                >
+              </div>
+
+            </div>
+
+            <!-- Form Error Box -->
+            <div id="pred-error-alert" class="alert-box alert-danger" role="alert">
+              <span id="pred-error-text"></span>
+            </div>
+
+            <!-- Submit Predict Button -->
+            <button type="submit" id="btn-predict-submit" class="btn-primary" style="margin-top: 0.5rem;">
+              <span class="spinner" id="predict-spinner"></span>
+              <span id="btn-predict-text">🔮 Predict Conversion Likelihood</span>
+            </button>
+          </form>
+
+          <!-- Result Section (Displaying Predicted Class & Probability) -->
+          <div id="prediction-result" class="prediction-result-panel" aria-live="polite">
+            <div class="result-badge-row">
+              <div>
+                <span id="res-badge" class="res-pill res-pill-success">
+                  <span id="res-icon">✅</span>
+                  <span id="res-status-text">CONVERTED</span>
+                </span>
+                <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 0.4rem;" id="res-enquiry-id">ID: ENQ101</span>
+              </div>
+              <div class="probability-metric">
+                <span id="res-proba">78.5%</span>
+                <span style="font-size: 0.8rem; font-weight: 500; color: #94A3B8;">Probability</span>
+              </div>
+            </div>
+
+            <!-- Probability Progress Bar -->
+            <div class="probability-bar-track">
+              <div id="res-bar-fill" class="probability-bar-fill prob-green" style="width: 78.5%;"></div>
+            </div>
+            <div class="prob-labels">
+              <span>0% (Cold Lead)</span>
+              <span>50% (Threshold)</span>
+              <span>100% (High Propensity)</span>
+            </div>
+
+            <!-- Business Action Recommendation -->
+            <div class="recommendation-callout">
+              <strong id="res-priority">📋 Strategic Recommendation (High Priority):</strong>
+              <p id="res-action">Assign lead to an Account Executive immediately.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- 3. Customer Prediction Table Section -->
+      <section class="dash-card" style="margin-top: 2rem;">
+        <div class="card-title-row">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            Customer Enquiries & Prediction Records
+          </h3>
+          <span style="font-size: 0.85rem; color: #94A3B8;" id="table-count-label">Showing 100 customer records</span>
+        </div>
+
+        <!-- Search and Filter Toolbar -->
+        <div class="table-toolbar">
+          <div class="search-box">
+            <svg style="position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: #64748B;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="table-search" class="form-control" placeholder="Search by ID, channel, service...">
+          </div>
+
+          <div class="table-filter-group">
+            <button type="button" class="filter-btn active" data-filter="all">All Records</button>
+            <button type="button" class="filter-btn" data-filter="converted">Converted (1)</button>
+            <button type="button" class="filter-btn" data-filter="not_converted">Not Converted (0)</button>
+          </div>
+        </div>
+
+        <!-- Responsive Table Container -->
+        <div class="table-responsive">
+          <table class="dash-table" id="customer-table">
+            <thead>
+              <tr>
+                <th>Enquiry ID</th>
+                <th>Channel Source</th>
+                <th>Service Tier</th>
+                <th>Budget ($)</th>
+                <th>Response Time</th>
+                <th>Follow-ups</th>
+                <th>Prediction Outcome</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="customer-tbody">
+              <!-- Dynamically populated via dashboard.js -->
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 2rem; color: #64748B;">
+                  Loading customer records...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Global App Footer -->
+    <footer class="login-footer" style="margin-top: auto; border-top: 1px solid var(--border-subtle);">
+      <span class="badge-pill-subtle">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Powered by Machine Learning
+      </span>
+    </footer>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

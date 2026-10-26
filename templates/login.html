@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login • Customer Conversion Prediction System</title>
+  <meta name="description" content="Secure administrative login for Customer Conversion Prediction AI/ML System.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366F1'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+</head>
+<body>
+
+  <!-- Ambient Animated Lighting -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="login-wrapper">
+    
+    <main class="login-container">
+      
+      <!-- Left Column: AI/ML Analytics Branding & Illustrations -->
+      <section class="login-hero" aria-label="Project Information">
+        <div class="brand-badge">
+          <span class="brand-badge-dot"></span>
+          <span>Enterprise AI Lead Intelligence</span>
+        </div>
+        
+        <h1>
+          Customer Conversion<br>
+          <span class="gradient-text">Prediction System</span>
+        </h1>
+        
+        <p class="subtitle">
+          Real-time machine learning inference portal to evaluate prospective customer enquiries, 
+          forecast conversion probabilities, and optimize sales team follow-up velocity.
+        </p>
+
+        <!-- Analytics Themed Illustration Card -->
+        <div class="illustration-card">
+          <div class="illustration-header">
+            <div class="dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="pipeline-chip">Pipeline: RandomForest + StandardScaler</div>
+          </div>
+          
+          <div class="funnel-grid">
+            <div class="funnel-metric">
+              <div class="num" id="hero-total-leads">100+</div>
+              <div class="lbl">Analyzed Leads</div>
+            </div>
+            <div class="funnel-metric">
+              <div class="num" style="color: #34D399;">80.0%</div>
+              <div class="lbl">Test Accuracy</div>
+            </div>
+            <div class="funnel-metric">
+              <div class="num" style="color: #38BDF8;">0.87</div>
+              <div class="lbl">ROC-AUC Score</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.2rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: #94A3B8;">
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Automated Lead Scoring</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Session Authenticated</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Admin Login Form -->
+      <section class="login-card" aria-label="Admin Login">
+        <div class="login-card-header">
+          <h2>Admin Authentication</h2>
+          <p>Please enter your administrator credentials to access the prediction dashboard.</p>
+        </div>
+
+        <!-- Alert Notification Box -->
+        <div id="login-alert" class="alert-box {% if error %}alert-danger show{% elif info %}alert-info show{% endif %}" role="alert">
+          <svg class="alert-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span id="alert-text">{{ error or info or '' }}</span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" method="POST" action="{{ url_for('login') }}" novalidate>
+          
+          <!-- Username / Email Field -->
+          <div class="form-group">
+            <label for="username" class="form-label">Username or Admin Email</label>
+            <div class="input-container">
+              <div class="input-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                class="form-control" 
+                placeholder="admin or admin@conversion.ai" 
+                value="{{ username or '' }}"
+                autocomplete="username" 
+                required 
+                autofocus
+              >
+            </div>
+          </div>
+
+          <!-- Password Field with Show/Hide Toggle -->
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-container">
+              <div class="input-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                class="form-control" 
+                placeholder="••••••••••••" 
+                autocomplete="current-password" 
+                required
+              >
+              <!-- Show/Hide Password Toggle Button -->
+              <button 
+                type="button" 
+                id="btn-toggle-password" 
+                class="password-toggle-btn" 
+                title="Toggle password visibility"
+                aria-label="Toggle password visibility"
+              >
+                <!-- Eye Open Icon (Visible when password masked) -->
+                <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <!-- Eye Slash Icon (Visible when password unmasked) -->
+                <svg id="eye-slash-icon" style="display: none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Options Row -->
+          <div class="form-options">
+            <label class="checkbox-label" for="remember_me">
+              <input type="checkbox" id="remember_me" name="remember_me" value="true">
+              <span>Stay signed in for 24h</span>
+            </label>
+            <span style="color: var(--text-dim); font-size: 0.8rem;">Session Protected</span>
+          </div>
+
+          <!-- Primary Submit Button with Loading State -->
+          <button type="submit" id="btn-login-submit" class="btn-primary">
+            <span class="spinner" id="login-spinner" aria-hidden="true"></span>
+            <span id="btn-text">Sign In to Dashboard</span>
+            <svg id="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Demo Credentials Helper -->
+        <div class="demo-box">
+          <div class="demo-info">
+            <div>Default Admin: <strong>admin</strong></div>
+            <div>Password: <strong>admin123</strong></div>
+          </div>
+          <button type="button" id="btn-fill-demo" class="btn-demo-fill">
+            ⚡ Quick Fill Demo
+          </button>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="login-footer">
+      <span class="badge-pill-subtle">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Powered by Machine Learning
+      </span>
+    </footer>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>
